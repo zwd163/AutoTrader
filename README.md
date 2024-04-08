@@ -44,7 +44,17 @@ https://www.reddit.com/r/algotrading/comments/qsniwi/i_created_a_divergence_indi
 - [CryptoBots](https://github.com/kieran-mackle/cryptobots) has been released along with version `1.0.0`, offering ready-to-trade crypto strategies from the command line
 - Version 0.7 has been released, adding integrations with [CCXT](https://github.com/ccxt/ccxt) crypto exchanges. Many more powerful upgrades too.
 - AutoTrader has been featured in GitClone's recent article, [*Top Crypto Trader Open-Source Projects on Github*](https://gitclone.dev/top-crypto-trader-open-source-projects-on-github/).
+Note that I have split the processes above into three indicators. There are some parameters which can be used to tune the sensitivity of each, but I will just give a brief overview of how to use them to reproduce the results above. They are also commented in the code itself. The indicators are:
 
+find_swings(): to detect the reversal levels. This function accepts OHLC data and indicator data sources. If you pass in the data from an indicator (ie. a 1D array), use the data_type='other' input parameter to specify that it is not OHLC data. This function will return a DataFrame with columns Highs, Lows, Last and Trend. The first three contain the values of the data source at high swings, low swings and the most recent swing, respectively. The Trend column contains 1 when there is an implied uptrend, and -1 when there is an implied downtrend.
+
+classify_swings(): to classify the swing levels as higher-highs, lower-lows, lower-highs and higher-lows. The main input to this function is the DataFrame output of find_swings(). The output is another DataFrame with columns "HH", "LL", "LH" and "HL".
+
+detect_divergence(): to compare the classified swings of two data sources (for example, price data and RSI). This function requires two "classified swings" DataFrames as inputs, as outputted from the classify_swings() function. It will then return a DataFrame with True/False columns titled 'regularBull', 'regularBear', 'hiddenBull', and 'hiddenBear', corresponding to the regular and hidden divergences detected.
+
+I have also wrapped all of the indicators above into a single indicator, autodetect_divergence. The inputs to this functions are the OHLC data and the indicator data. It will return the same thing as detect_divergence, described above.
+
+Hopefully this post was interesting and maybe gave someone some ideas. Please let me know if you have any suggestions or questions. Thanks for reading!
 ## Features
 - A feature-rich trading simulator, supporting [backtesting](https://autotrader.readthedocs.io/en/latest/features/backtesting.html) and 
 papertrading. The 'virtual broker' allows you to test your strategies in a risk-free, simulated environment before going live. Capable 
