@@ -36,6 +36,10 @@ AutoTrader is Python-based platform intended to help in the development, optimis
 A basic level of experience with Python is recommended for using AutoTrader, but the [docs](https://autotrader.readthedocs.io/en/latest/) 
 aim to make using it as easy as possible with detailed tutorials and documentation.
 
+这里有对pivots 检测详细的说明：
+https://www.reddit.com/r/algotrading/comments/qsniwi/i_created_a_divergence_indicator_python/
+
+
 ## Latest News
 - [CryptoBots](https://github.com/kieran-mackle/cryptobots) has been released along with version `1.0.0`, offering ready-to-trade crypto strategies from the command line
 - Version 0.7 has been released, adding integrations with [CCXT](https://github.com/ccxt/ccxt) crypto exchanges. Many more powerful upgrades too.
